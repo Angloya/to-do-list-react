@@ -23,12 +23,12 @@ class ToDoList extends PureComponent {
     return (
       <Container>
         <Row>
-          <Col sm="12" md={{ size: 8, offset: 2 }}>
+          <Col sm="12" xs={{ size: 10, offset: 1 }} md={{ size: 8, offset: 2 }}>
            <AddItem addItem={addItem}/>
           </Col>
         </Row>
         <Row>
-          <Col sm="12" md={{ size: 6, offset: 3 }}>
+          <Col sm="12" md={{ size: 8, offset: 2 }}>
             <ListGroup>
             {items.map((item, idx) => 
               <Item 

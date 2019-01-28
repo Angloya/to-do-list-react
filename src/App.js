@@ -6,11 +6,23 @@ import About from './components/About'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 class App extends Component {
-  state = {
-    items: [
-    ]
+  constructor(props) {
+    super(props)
+    var value = JSON.parse(localStorage.getItem('items'))
+    if (value) {
+      this.state = {
+        items: value
+      }
+    } else {
+      this.state = {
+        items: []
+      }
+    }
   }
   prevItemId = -1
+  saveStateWithLocalStorage(value) {
+    localStorage.setItem('items', JSON.stringify(value))
+  }
   handleAddItem = (name, text) => {
     this.setState( prevState => {
       return {
@@ -25,6 +37,7 @@ class App extends Component {
         ]
       }
     })
+    this.saveStateWithLocalStorage(this.state.items)
   }
   handleDoneItem = (id) => {
     const newItems = [...this.state.items]
@@ -32,6 +45,7 @@ class App extends Component {
     this.setState({
       items: newItems
     })
+    this.saveStateWithLocalStorage(this.state.items)
   }
   handleRemoveItem = (id) => {
     this.setState( prevState => {
@@ -39,6 +53,7 @@ class App extends Component {
         items: prevState.items.filter(p => p.id !== id)
       }
     })
+    this.saveStateWithLocalStorage(this.state.items)
   }
   handleEditItem = (name, text, id) => {
     const prevState = [...this.state.items]
@@ -47,6 +62,7 @@ class App extends Component {
     this.setState({
         items: prevState
     })
+    this.saveStateWithLocalStorage(this.state.items)
   }
   render () {
     return (

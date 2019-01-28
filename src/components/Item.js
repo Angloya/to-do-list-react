@@ -38,8 +38,8 @@ class Item extends PureComponent {
       )
     } else {
       return (
-        <ListGroupItem className="m-1" color={isItemDone? "success" : "info"}>
-          <Container>
+        <ListGroupItem className="m-2" color={isItemDone? "success" : ""}>
+          <Container className="p-0">
             <Row>
              <Col sm="1.5" className="m-1">
                 <Button outline onClick={() => doneItem(id)}>
@@ -51,7 +51,7 @@ class Item extends PureComponent {
                 <span aria-hidden>edit</span>
                 </Button>
               </Col>
-              <Col sm="8">
+              <Col sm="9" xs="7">
                 <ListGroupItemHeading>
                   {name}
                 </ListGroupItemHeading>
@@ -59,7 +59,7 @@ class Item extends PureComponent {
                   {text} 
                 </ListGroupItemText>
               </Col>
-              <Col sm="1">
+              <Col sm="0.5" className="p-0">
                 <Button close aria-label="Cancel" onClick={() => removeItem(id)}>
                 <span aria-hidden>&ndash;</span>
                 </Button>
