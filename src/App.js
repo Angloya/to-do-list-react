@@ -10,7 +10,7 @@ class App extends Component {
     items: [
     ]
   }
-  prevItemId = 0
+  prevItemId = -1
   handleAddItem = (name, text) => {
     this.setState( prevState => {
       return {
@@ -19,18 +19,33 @@ class App extends Component {
           {
             name,
             text,
-            id: this.prevItemId += 1
+            id: this.prevItemId += 1,
+            isItemDone: false
           }
         ]
-      };
-    });
+      }
+    })
   }
-
+  handleDoneItem = (id) => {
+    const newItems = [...this.state.items]
+    newItems[id].isItemDone = !newItems[id].isItemDone
+    this.setState({
+      items: newItems
+    })
+  }
   handleRemoveItem = (id) => {
     this.setState( prevState => {
       return {
         items: prevState.items.filter(p => p.id !== id)
       }
+    })
+  }
+  handleEditItem = (name, text, id) => {
+    const prevState = [...this.state.items]
+    prevState[id].name =  name
+    prevState[id].text =  text
+    this.setState({
+        items: prevState
     })
   }
   render () {
@@ -40,7 +55,14 @@ class App extends Component {
           <Header/>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/list"   render={()=><ToDoList items={this.state.items} removeItem={this.handleRemoveItem} addItem={this.handleAddItem}/>}/>
+            <Route path="/list"
+              render={()=>
+              <ToDoList
+                items={this.state.items}
+                doneItem={this.handleDoneItem}
+                removeItem={this.handleRemoveItem}
+                addItem={this.handleAddItem}
+                editItem={this.handleEditItem}/>}/>
             <Route path="/about" component={About}/>
             </Switch>
         </div>

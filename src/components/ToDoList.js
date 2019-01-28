@@ -8,13 +8,17 @@ class ToDoList extends PureComponent {
   static propTypes = {
     removeItem: PropTypes.func,
     items: PropTypes.array.isRequired,
-    addItem: PropTypes.func.isRequired
+    addItem: PropTypes.func.isRequired,
+    doneItem: PropTypes.func.isRequired,
+    editItem: PropTypes.func.isRequired,
   }
   render () {
     const {
       items,
       addItem,
-      removeItem
+      removeItem,
+      doneItem,
+      editItem
     } = this.props
     return (
       <Container>
@@ -32,7 +36,10 @@ class ToDoList extends PureComponent {
                 id={item.id}
                 name={item.name}
                 text={item.text}
+                isItemDone={item.isItemDone}
                 removeItem={removeItem}
+                doneItem={doneItem}
+                editItem={editItem}
               />
             )}
             </ListGroup>

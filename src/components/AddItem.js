@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 class AddItem extends React.Component {
   static propTypes = {
-    addItem: PropTypes.func
+    addItem: PropTypes.func.isRequired
   }
   ItemTitle = React.createRef()
   ItemText = React.createRef()
@@ -19,11 +19,11 @@ class AddItem extends React.Component {
       <Form inline onSubmit={this.handleSubmit} className="m-4">
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Label for="title" className="mr-sm-2">Title</Label>
-          <Input type="text" innerRef={this.ItemTitle} name="title" placeholder="add title" />
+          <Input type="text" innerRef={this.ItemTitle} name="title" placeholder="Add title" />
         </FormGroup>
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Label for="text" className="mr-sm-2">Text</Label>
-          <Input type="text" innerRef={this.ItemText} name="text" placeholder="add text" />
+          <Input type="text" innerRef={this.ItemText} name="text" placeholder="Add text" />
         </FormGroup>
         <Button>Submit</Button>
       </Form>
