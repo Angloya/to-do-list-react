@@ -19,25 +19,21 @@ class App extends Component {
       }
     }
   }
-  prevItemId = -1
   saveStateWithLocalStorage(value) {
     localStorage.setItem('items', JSON.stringify(value))
   }
   handleAddItem = (name, text) => {
-    this.setState( prevState => {
-      return {
-        items: [
-          ...prevState.items,
-          {
-            name,
-            text,
-            id: this.prevItemId += 1,
-            isItemDone: false
-          }
-        ]
-      }
+    const prevState = [...this.state.items]
+    let newItem = {
+      name,
+      text,
+      isItemDone: false
+    }
+    prevState.push(newItem)
+    this.setState({
+        items: prevState
     })
-    this.saveStateWithLocalStorage(this.state.items)
+    this.saveStateWithLocalStorage(prevState)
   }
   handleDoneItem = (id) => {
     const newItems = [...this.state.items]
@@ -48,12 +44,12 @@ class App extends Component {
     this.saveStateWithLocalStorage(this.state.items)
   }
   handleRemoveItem = (id) => {
-    this.setState( prevState => {
-      return {
-        items: prevState.items.filter(p => p.id !== id)
-      }
+    const prevState = [...this.state.items]
+    prevState.splice(id, 1)
+    this.setState({
+        items: prevState
     })
-    this.saveStateWithLocalStorage(this.state.items)
+    this.saveStateWithLocalStorage(prevState)
   }
   handleEditItem = (name, text, id) => {
     const prevState = [...this.state.items]
@@ -70,7 +66,14 @@ class App extends Component {
         <div className="App">
           <Header/>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/"
+              render={()=>
+              <Home
+              items={this.state.items}
+              doneItem={this.handleDoneItem}
+              removeItem={this.handleRemoveItem}
+              addItem={this.handleAddItem}
+              editItem={this.handleEditItem}/>}/>
             <Route path="/list"
               render={()=>
               <ToDoList

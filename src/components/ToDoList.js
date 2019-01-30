@@ -33,7 +33,7 @@ class ToDoList extends PureComponent {
             {items.map((item, idx) => 
               <Item 
                 key={idx}
-                id={item.id}
+                id={idx}
                 name={item.name}
                 text={item.text}
                 isItemDone={item.isItemDone}
